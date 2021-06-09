@@ -35,13 +35,13 @@ router.get('/getAllTLsTMs',VerifyUserJWT,HrController.TeamMembersDetails);
 
 
 //CHECK ROUTES
-router.get("/check",VerifyUserJWT,(req,res)=>{
+router.get("/check",(req,res)=>{
     console.log("Value fetched from token userid, accHash, email")
-    console.log(req.user.empId);
-    console.log(req.user.role);
-    console.log(req.user.email);
+   // console.log(req.user.empId);
+    //console.log(req.user.role);
+    //console.log(req.user.email);
 
-res.send("Welcome ! Everything is perfectly setUp")
+res.send("Welcome ! Everything is perfect")
 });
 
 /*router.get("/checkHeroku",(req,res)=>{
