@@ -17,7 +17,7 @@ router.post('/changeuserpassword',VerifyUserJWT,UserAuthController.ChangePasswor
 // HR Controllers route
 router.post('/createProject',VerifyUserJWT,HrController.CreateProject);
 router.post('/assignProject',VerifyUserJWT,HrController.AssignProject);
-router.post('/createTeam',VerifyUserJWT,HrController.CreateTeam);
+//router.post('/createTeam',VerifyUserJWT,HrController.CreateTeam);
 router.get('/getAllProjects',VerifyUserJWT,HrController.GetAllProjects);
 router.get('/unassignedProjectManager',VerifyUserJWT,HrController.UnassignedPM);
 router.get('/getAllProjectManager',VerifyUserJWT,HrController.getAllPM);
