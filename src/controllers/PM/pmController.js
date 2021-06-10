@@ -21,7 +21,7 @@ const {
     //inserting Meeting Schedule details
     let [err, meet_scheduled] = await to(
       Meeting.query()
-      .insert({ meetDate: meetDate, meetTime: meetTime, scheduleBy: Name, teamName: teamName })
+      .insert({ meetDate: meetDate, meetTime: meetTime, scheduleBy: Name, scheduleFor: teamName })
       .returning("*")
     
     );
