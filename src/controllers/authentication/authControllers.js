@@ -53,6 +53,7 @@ const Login = async (req, res) => {
   let access_token;
  // console.log(req.body);
   let { email, password } = req.body;
+  //console.log(email);
   if (!validator.isEmail(email || ""))
  return badRequestError(res, "Enter a valid email address ");
   if (password === "")
@@ -61,7 +62,7 @@ const Login = async (req, res) => {
   let [incorrect, user_returned] = await to(
     Employee.query().findOne("email", email).throwIfNotFound()
   );
-  console.log("user_returned  " + user_returned.fullName)
+  console.log("user_returned  " + user_returned.email)
   if (incorrect) return badRequestError(res, "email does not exists");
 
   //Checking whether email is verified
@@ -83,7 +84,7 @@ const Login = async (req, res) => {
       res.setHeader("access-control-expose-headers", "authorization");
 
       delete user_returned.password;
-      return okResponse(res, user_returned, "loged in successfully");
+      return okResponse(res, user_returned, `loged in successfully...   Your Token is ${access_token}`);
     }
     //Error returned when password is invalid
     return unverifiedError(res, "invalid password");

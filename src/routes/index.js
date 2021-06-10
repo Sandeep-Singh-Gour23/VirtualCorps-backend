@@ -27,6 +27,7 @@ router.get('/getAllTLsTMs',VerifyUserJWT,HrController.TeamMembersDetails);
 
 // PM Controllers route
 //router.post('/createTask',VerifyUserJWT,PmController.CreateTask);
+//router.post('/scheduleMeet',VerifyUserJWT,PmController.ScheduleMeet);
 router.post('/scheduleMeet',VerifyUserJWT,PmController.ScheduleMeet);
 
 
