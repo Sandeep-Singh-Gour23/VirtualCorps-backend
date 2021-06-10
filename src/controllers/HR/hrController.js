@@ -39,11 +39,11 @@ const {
     const [error, NotAssignedProject] = await to(
       Project.query().select( "projectName","description","subDescription" ).where("projectStatus","not assigned")
          )
-
+          //console.log(NotAssignedProject);
          const [error2, AssignedProject] = await to(
           Project.query().select( "projectName","description","subDescription","assignedTo" ).where("projectStatus","assigned")
              )
-
+             //console.log(AssignedProject);
              const [error3, CompletedProject] = await to(
               Project.query().select( "projectName","description","subDescription","assignedTo" ).where("projectStatus","completed")
                  )
@@ -104,7 +104,7 @@ const {
     //inserting Assigned Project Manager into Project table
     let [err, assign_project] = await to(
       Project.query()
-      .patch({ assignedTo: empId })
+      .update({ assignedTo: empId, projectStatus:"assigned" })
       .where("projectName", projectName)
       .returning("*")
     
@@ -116,7 +116,7 @@ const {
     //updating Project Manager's Profile
     let [err2, update_PM_Profile] = await to(
       Employee.query()
-      .patch({ isAssigned: "true" })
+      .update({ isAssigned: "true" })
       .where("empId", assign_project[0].assignedTo)
       .returning("*")
     

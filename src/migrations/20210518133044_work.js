@@ -26,7 +26,7 @@ exports.up = function(knex) {
         table.string("meetDate").notNullable();
         table.string("meetTime").notNullable();
         table.integer("scheduleBy").references("empId").inTable("employee").onDelete("CASCADE");
-        table.uuid("scheduleFor").references("teamId").inTable("teamDetails").onDelete("CASCADE");
+        table.string("scheduleFor");
 
         table.timestamps(false,true);
     })
