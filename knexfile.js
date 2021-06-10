@@ -27,16 +27,17 @@ module.exports = {
       host: "ec2-184-73-198-174.compute-1.amazonaws.com",
       port: 5432,
       user: "zeoyripqhbbjam",
-      connectionString: "postgres://zeoyripqhbbjam:0d4a7daf5044fa9dad1780d13693be347c83600fbe6c339ebc48252c36ee7fd8@ec2-184-73-198-174.compute-1.amazonaws.com:5432/dfn9dm5eu6eee3",
+      listen_addresses: "*",
       password: "0d4a7daf5044fa9dad1780d13693be347c83600fbe6c339ebc48252c36ee7fd8",
       database: "dfn9dm5eu6eee3",
-           // Create Database with same name on your local machine in postgres or change the name these with your database name.
-      }, 
       ssl: true,
-    extra: {
-      ssl: {
-        rejectUnauthorized: false
-      },
+      extra: {
+        ssl: {
+          rejectUnauthorized: false
+        },
+                                      // Create Database with same name on your local machine in postgres or change the name these with your database name.
+      }, 
+     
     },                                   // Change these with your own database connection URL.
     migrations: {
       directory: './src/migrations'
