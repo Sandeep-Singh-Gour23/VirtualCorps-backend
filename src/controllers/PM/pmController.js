@@ -14,14 +14,14 @@ const {
   const ScheduleMeet = async (req, res) => {
     console.log(req.body);
     console.log(req.user.empId);
-    let Name= req.user.fullName;
+    let empId=req.user.empId;
     let { meetDate, meetTime, teamName } = req.body;
    if (teamName === "") return badRequestError(res, "Project Name can not be empty");
   
     //inserting Meeting Schedule details
     let [err, meet_scheduled] = await to(
       Meeting.query()
-      .insert({ meetDate: meetDate, meetTime: meetTime, scheduleBy: Name, scheduleFor: teamName })
+      .insert({ meetDate: meetDate, meetTime: meetTime, scheduleBy: empId, scheduleFor: teamName })
       .returning("*")
     
     );
