@@ -84,7 +84,7 @@ const Login = async (req, res) => {
       res.setHeader("access-control-expose-headers", "authorization");
 
       delete user_returned.password;
-      return okResponse(res, user_returned, `loged in successfully...   Your Token is ${access_token}`);
+      return okResponse(res, user_returned,access_token);
     }
     //Error returned when password is invalid
     return unverifiedError(res, "invalid password");
