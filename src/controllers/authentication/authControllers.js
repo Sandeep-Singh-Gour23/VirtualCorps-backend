@@ -9,11 +9,43 @@ const Employee = require("../../models/employeeModel");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+var nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const SignUp = async (req, res) => {
   console.log(req.body);
   let { fullName, address, contactNumber, email, password, role, empTech } = req.body;
+
+   // Sent mail to upcoming employee
+   var transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    requireTLS: true,
+    auth: {
+        user: 'team.virtualcorps@gmail.com',
+        pass: "minor_12345"
+    }
+});
+var mailOptions = {
+    from: 'team.virtualcorps@gmail.com',
+    to: email,
+    subject: "Welcome to VirtualCorp",
+    text: `Congratulations ${fullName}, As now you be a part of our great Organisation -VirtualCorps.
+
+
+    
+    Here is your login Credentials:- userId:${email} and Password:${password}`
+    
+}
+transporter.sendMail(mailOptions, function(error, info) {
+    if(error){
+       console.log(error); 
+    }
+    else {
+        console.log('email has been sent', info.response);
+    }
+})
 
   //email and password validation before inserting user
   if (!validator.isEmail(email || ""))
@@ -38,6 +70,37 @@ const SignUp = async (req, res) => {
       .returning("*")
   );
   if (err) badRequestError(res, "unable to insert user");
+
+  // Sent mail to upcoming employee
+  var transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 587,
+    secure: false,
+    requireTLS: true,
+    auth: {
+        user: 'team.virtualcorps@gmail.com',
+        pass: "minor_12345"
+    }
+});
+var mailOptions = {
+    from: 'team.virtualcorps@gmail.com',
+    to: email,
+    subject: "Welcome to VirtualCorp",
+    text: `Congratulations ${fullName}, As now you be a part of our great Organisation -VirtualCorps.
+
+
+
+    Here is your login Credentials:- userId:${email} and Password:${password}`
+    
+}
+transporter.sendMail(mailOptions, function(error, info) {
+    if(error){
+       console.log(error); 
+    }
+    else {
+        console.log('email has been sent', info.response);
+    }
+})
 
   delete user_inserted.password;
   console.log("User's detail ", user_inserted);

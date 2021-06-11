@@ -6,6 +6,7 @@ const {
   } = require("../../../global_functions");
   const Project = require("../../models/projectModel");
   const Employee = require("../../models/employeeModel");
+  const TeamDetails = require("../../models/teamDetailsModel");
   const validator = require("validator");
   const bcrypt = require("bcrypt");
   const jwt = require("jsonwebtoken");
@@ -179,6 +180,42 @@ const {
     return okResponse(res,Team_Members_details, "Data fatched successfully");
   };
 
+/*Create a team
+
+const CreateTeam = async (req, res) => {
+  console.log(req.body);
+  let { teamName, teamType, projectManagerId, teamLeader, teamMates } = req.body;
+ if (teamName === "") return badRequestError(res, "Team Name can not be empty");
+ if (teamType === "") return badRequestError(res, "Team Type can not be empty");
+ if (projectManagerId === "") return badRequestError(res, "projectManagerId can not be empty");
+ if (teamLeader === "") return badRequestError(res, "Team Leader can not be empty");
+ if (teamMates === "") return badRequestError(res, "Team Mates can not be empty");
+
+  //inserting Team with insertGraph
+ 
+    let [err, team_created] = await to(
+        TeamDetails.query().insertGraph({
+
+            teamName: teamName,
+            teamType: teamType,
+            projectManagerId: projectManagerId,
+
+            TeamMembers: [
+              {
+                teamLeader: teamLeader,
+                teamMates: teamMates,
+          
+              }
+            ]
+          }).returning("*")
+        
+      );
+  if (err) badRequestError(res, "unable to create Team");
+
+  console.log("Team Created ", team_created);
+  return okResponse(res, "Team created successfully");
+};*/
+
 
 
 
@@ -191,5 +228,6 @@ const {
       UnassignedPM,
       AssignProject,
       getAllPM,
-      TeamMembersDetails
+      TeamMembersDetails,
+      //CreateTeam
   }
