@@ -217,6 +217,20 @@ const CreateTeam = async (req, res) => {
 };*/
 
 
+  // Get All Projects
+
+  const GetProjects = async (req, res) => {
+  
+    let [err, allProjects] = await to(
+
+      Project.query()
+      .returning("*")
+      );
+    if (err) badRequestError(res, "unable to fetch data");
+
+    console.log("Fetched Data ", allProjects);
+    return okResponse(res,allProjects, "Data fatched successfully");
+  };
 
 
 
@@ -229,5 +243,6 @@ const CreateTeam = async (req, res) => {
       AssignProject,
       getAllPM,
       TeamMembersDetails,
+      GetProjects
       //CreateTeam
   }
