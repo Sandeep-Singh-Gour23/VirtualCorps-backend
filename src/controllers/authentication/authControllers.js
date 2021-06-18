@@ -16,6 +16,30 @@ const SignUp = async (req, res) => {
   console.log(req.body);
   let { fullName, address, contactNumber, email, password, role, empTech } = req.body;
 
+  //email and password validation before inserting user
+  if (!validator.isEmail(email || ""))
+    return badRequestError(res, "Enter a valid email address");
+  if (password === "") return badRequestError(res, "password can not be empty");
+  if (role === "") 
+  return unverifiedError(res, "role field is empty");
+
+  let [error, result] = await to(Employee.query().where("email", email).first());
+  if (error) console.log(error);
+  if (result) {
+    console.log(result);
+    return badRequestError(res, " email already exists");
+  }
+
+  hash_password = await bcrypt.hash(password, 10);     //hashing password on validating email and pass
+
+  //inserting user details
+  let [err, user_inserted] = await to(
+    Employee.query()
+      .insert({ fullName: fullName, address: address, contactNumber: contactNumber, email: email, password: hash_password, role: role, empTech: empTech })
+      .returning("*")
+  );
+  if (err) badRequestError(res, "unable to insert user");
+
    // Sent mail to upcoming employee
    var transporter = nodemailer.createTransport({
     host: 'smtp.gmail.com',
@@ -35,62 +59,7 @@ var mailOptions = {
 
 
     
-    Here is your login Credentials:- userId:${email} and Password:${password}`
-    
-}
-transporter.sendMail(mailOptions, function(error, info) {
-    if(error){
-       console.log(error); 
-    }
-    else {
-        console.log('email has been sent', info.response);
-    }
-})
-
-  //email and password validation before inserting user
-  if (!validator.isEmail(email || ""))
-    return badRequestError(res, "Enter a valid email address");
-  if (password === "") return badRequestError(res, "password can not be empty");
-  if (role === "") 
-  return unverifiedError(res, "role field is empty");
-
-  let [error, result] = await to(Employee.query().where("email", email).first());
-  if (error) console.log(error);
-  if (result) {
-    console.log(result);
-    return badRequestError(res, " email already exists");
-  }
-
-  password = await bcrypt.hash(password, 10);     //hashing password on validating email and pass
-
-  //inserting user details
-  let [err, user_inserted] = await to(
-    Employee.query()
-      .insert({ fullName: fullName, address: address, contactNumber: contactNumber, email: email, password: password, role: role, empTech: empTech })
-      .returning("*")
-  );
-  if (err) badRequestError(res, "unable to insert user");
-
-  // Sent mail to upcoming employee
-  var transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 587,
-    secure: false,
-    requireTLS: true,
-    auth: {
-        user: 'team.virtualcorps@gmail.com',
-        pass: "minor_12345"
-    }
-});
-var mailOptions = {
-    from: 'team.virtualcorps@gmail.com',
-    to: email,
-    subject: "Welcome to VirtualCorp",
-    text: `Congratulations ${fullName}, As now you be a part of our great Organisation -VirtualCorps.
-
-
-
-    Here is your login Credentials:- userId:${email} and Password:${password}`
+    Here is your login Credentials:- userId: ${email} and Password: ${password}`
     
 }
 transporter.sendMail(mailOptions, function(error, info) {
@@ -125,8 +94,10 @@ const Login = async (req, res) => {
   let [incorrect, user_returned] = await to(
     Employee.query().findOne("email", email).throwIfNotFound()
   );
-  console.log("user_returned  " + user_returned.email)
-  if (incorrect) return badRequestError(res, "email does not exists");
+ // console.log("user_returned  " + user_returned.email)
+  if (incorrect) 
+  {console.log("error  " + incorrect)
+  return badRequestError(res, "email does not exists or enter the correct email address");}
 
   //Checking whether email is verified
   if (user_returned.email === email) {

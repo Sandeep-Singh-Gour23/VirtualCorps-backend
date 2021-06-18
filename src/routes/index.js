@@ -20,7 +20,8 @@ router.post('/assignProject',VerifyUserJWT,HrController.AssignProject);
 //router.post('/createTeam',HrController.CreateTeam);
 router.get('/getAllProjects',VerifyUserJWT,HrController.GetAllProjects);
 router.get('/unassignedProjectManager',VerifyUserJWT,HrController.UnassignedPM);
-router.get('/getAllProjectManager',VerifyUserJWT,HrController.getAllPM);
+router.get('/getAllProjectManager',HrController.getAllPM);
+router.get('/getProjects',HrController.GetProjects);
 router.get('/getAllTLsTMs',VerifyUserJWT,HrController.TeamMembersDetails);
 
 
