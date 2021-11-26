@@ -10,6 +10,7 @@ const VerifyUserJWT=require("../middleware/jwt").VerifyUserJWT;
 router.post('/signup',UserAuthController.SignUp);
 router.post('/login',UserAuthController.Login);
 router.post('/changeuserpassword',VerifyUserJWT,UserAuthController.ChangePassword);
+router.get('/getEmpDetails',VerifyUserJWT,UserAuthController.GetEmpDetails);
 //router.post('/logOut',VerifyUserJWT,UserAuthController.LogOut);
 
 
@@ -18,6 +19,7 @@ router.post('/changeuserpassword',VerifyUserJWT,UserAuthController.ChangePasswor
 router.post('/createProject',VerifyUserJWT,HrController.CreateProject);
 router.post('/assignProject',VerifyUserJWT,HrController.AssignProject);
 //router.post('/createTeam',HrController.CreateTeam);
+router.get('/getAllTeam',HrController.GetAllTeam);
 router.get('/getAllProjects',VerifyUserJWT,HrController.GetAllProjects);
 router.get('/unassignedProjectManager',VerifyUserJWT,HrController.UnassignedPM);
 router.get('/getAllProjectManager',HrController.getAllPM);
@@ -30,6 +32,8 @@ router.get('/getAllTLsTMs',VerifyUserJWT,HrController.TeamMembersDetails);
 //router.post('/createTask',VerifyUserJWT,PmController.CreateTask);
 //router.post('/scheduleMeet',VerifyUserJWT,PmController.ScheduleMeet);
 router.post('/scheduleMeet',PmController.ScheduleMeet);
+
+//scheduleMeet retrive 
 
 
 

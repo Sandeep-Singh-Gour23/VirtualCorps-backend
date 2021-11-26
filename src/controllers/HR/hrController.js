@@ -232,6 +232,25 @@ const CreateTeam = async (req, res) => {
     return okResponse(res,allProjects, "Data fatched successfully");
   };
 
+  // Get All Team's detail with withGraphFetch
+  
+  const GetAllTeam = async (req, res) => {
+  
+    let [err, getAllTeam] = await to(
+
+      TeamDetails.query()
+      .returning("*")
+      );
+    if (err) badRequestError(res, "unable to fetch data");
+
+    console.log("Fetched Data ", getAllTeam);
+    return okResponse(res,getAllTeam, "Data fatched successfully");
+  };
+
+
+
+
+
 
 
 
@@ -243,6 +262,7 @@ const CreateTeam = async (req, res) => {
       AssignProject,
       getAllPM,
       TeamMembersDetails,
-      GetProjects
+      GetProjects,
+      GetAllTeam,
       //CreateTeam
   }
