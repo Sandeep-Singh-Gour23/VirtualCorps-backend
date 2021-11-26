@@ -167,9 +167,35 @@ const logOut = async (req, res) => {
 
 };
 */
+
+// Getting employee's detail
+
+
+const GetEmpDetails = async (req, res) => {
+  
+  let userId= req.user.empId;
+  //console.log(userId);
+
+  let [err, EmpDetails] = await to(
+    
+
+    Employee.query().where("empId",userId)
+    );
+  if (err) badRequestError(res, "unable to fetch data");
+
+  console.log("Fetched Data ", EmpDetails);
+  return okResponse(res,EmpDetails, "Data fatched successfully");
+};
+
+
+
+
+
+
 module.exports = {
   SignUp,
   Login,
   ChangePassword,
+  GetEmpDetails,
   //logOut
 };
