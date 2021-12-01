@@ -32,6 +32,7 @@ router.get('/getAllTLsTMs',VerifyUserJWT,HrController.TeamMembersDetails);
 //router.post('/createTask',VerifyUserJWT,PmController.CreateTask);
 //router.post('/scheduleMeet',VerifyUserJWT,PmController.ScheduleMeet);
 router.post('/scheduleMeet',PmController.ScheduleMeet);
+router.get('/getPMProjects',VerifyUserJWT,PmController.GetPMProjects);
 
 //scheduleMeet retrive 
 
