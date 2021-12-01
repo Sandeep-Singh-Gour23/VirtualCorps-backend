@@ -11,6 +11,7 @@ const {
   const bcrypt = require("bcrypt");
   const jwt = require("jsonwebtoken");
   require('dotenv').config();
+  
 
 
 
@@ -84,17 +85,16 @@ const {
 
    const AssignProject = async (req, res) => {
     console.log(req.body);
-    let { empId, fullName, projectName } = req.body;
+    let { empId , projectName } = req.body;
     if (empId === "") return badRequestError(res, "empId can not be null");
-    if (fullName === "") return badRequestError(res, "Name can not be empty");
    if (projectName === "") return badRequestError(res, "Project Name can not be empty");
 
    let [error, result] = await to(Employee.query().select("isAssigned").where("empId", empId).first());
   if (error) console.log(error);
   console.log(result);
-  if (result.isAssigned === true) {
+  /*if (result.isAssigned === true) {
     return badRequestError(res, "This Project Manager is already Assigned");
-  }
+  }*/
   let [error2, result2] = await to(Project.query().select("projectStatus").where("projectName", projectName).first());
   if (error2) console.log(error2);
   console.log(result2);
@@ -180,9 +180,9 @@ const {
     return okResponse(res,Team_Members_details, "Data fatched successfully");
   };
 
-/*Create a team
+//Create a team
 
-const CreateTeam = async (req, res) => {
+/*const CreateTeam = async (req, res) => {
   console.log(req.body);
   let { teamName, teamType, projectManagerId, teamLeader, teamMates } = req.body;
  if (teamName === "") return badRequestError(res, "Team Name can not be empty");

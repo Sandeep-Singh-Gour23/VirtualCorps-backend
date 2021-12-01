@@ -31,11 +31,29 @@ const {
     return okResponse(res, "Meet Scheduled successfully");
   };
   
+   // Getting All projects of PM
 
+   const GetPMProjects = async (req, res) => {
+  
+    let userId= req.user.empId;
+    console.log(userId);
+  
+    let [err, GetPMProjects] = await to(
+      
+  
+      Project.query().where("assignedTo",userId)
+      );
+    if (err) badRequestError(res, "unable to fetch data");
+  
+    console.log("Fetched Data ", GetPMProjects);
+    return okResponse(res,GetPMProjects, "Data fatched successfully");
+  };
+  
 
 
 
 
   module.exports = {
-    ScheduleMeet
+    ScheduleMeet,
+    GetPMProjects
 }
