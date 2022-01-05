@@ -33,12 +33,13 @@ router.get('/getAllTLsTMs',VerifyUserJWT,HrController.TeamMembersDetails);
 //router.post('/scheduleMeet',VerifyUserJWT,PmController.ScheduleMeet);
 router.post('/scheduleMeet',PmController.ScheduleMeet);
 router.get('/getPMProjects',VerifyUserJWT,PmController.GetPMProjects);
+router.post('/assignTask',VerifyUserJWT,PmController.AssignTask);
 
 //scheduleMeet retrive 
 
 
 
-
+// TM Controllers route
 
 
 //CHECK ROUTES
